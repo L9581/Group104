@@ -6,3 +6,4 @@ The group mini-project of software-engineering class
 - Bowen Lai / 231223069 / 2023215121
 - Zehao Yang / 231223106 / 2023215121
 - Zhuohang Tian / 231223128 / 2023215121
+- Weiye Chen / 231223117 / 2023215121
