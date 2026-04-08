@@ -34,3 +34,11 @@ docs: Docs changes.
 refactor: Refactor the codes.  
 test: Test codes.  
 chore: Others.  
+
+## Build and run
+
+Make sure `javac` and `java` are available in your `PATH`, then use the script for your platform:
+
+- Linux: `./build_and_run.sh`
+- macOS: `./build_and_run_mac.sh`
+- Windows: `build_and_run_win.bat`
