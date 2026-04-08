@@ -7,4 +7,5 @@ The group mini-project of software-engineering class
 - Zehao Yang / 231223106 / 2023215121
 - Zhuohang Tian / 231223128 / 2023215121
 - Weiye Chen / 231223117 / 2023215121
-- Qian Li/ 231223092 / 2023215121
+- Qian Li / 231223092 / 2023215121
+- Chenyu Kang / 231223122 / 2023215121
