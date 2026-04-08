@@ -52,7 +52,7 @@ public class LoginPanel extends JPanel {
     private JPanel buildFormCard() {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setPreferredSize(new Dimension(360, 320));
+        card.setPreferredSize(new Dimension(360, 400));
         card.setBackground(Color.WHITE);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(220, 224, 230)),
