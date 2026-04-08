@@ -28,9 +28,9 @@ The group mini-project of software-engineering class
 
 Commit msg use Conventional Commits:
 
-feat: Feature. New functions.
-fix: Fix the bugs.
-docs: Docs changes.
-refactor: Refactor the codes.
-test: Test codes.
-chore: Others.
+feat: Feature. New functions.  
+fix: Fix the bugs.  
+docs: Docs changes.  
+refactor: Refactor the codes.  
+test: Test codes.  
+chore: Others.  
