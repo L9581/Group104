@@ -1,9 +1,8 @@
 # Group104
-
-Software Engineering group project for the `Teaching Assistant Recruitment System`.
+The group mini-project of software-engineering class
 
 ## Team Members
-
+- Member Name / QMUL ID / Class ID
 - Bowen Lai / 231223069 / 2023215121
 - Zehao Yang / 231223106 / 2023215121
 - Zhuohang Tian / 231223128 / 2023215121
@@ -11,25 +10,52 @@ Software Engineering group project for the `Teaching Assistant Recruitment Syste
 - Qian Li / 231223092 / 2023215121
 - Chenyu Kang / 231223122 / 2023215121
 
-## Working Method
+# Contribute
 
-This project will be developed using a lightweight Agile workflow suitable for a small student team and the course requirements.
+## File structure
+
+```
+----Group104
+   |
+   |----documents: Documents folder
+   |
+   |----codes
+       |
+       |----src: Java source codes
+```
+
+## Git
+
+Commit msg use Conventional Commits:
+
+feat: Feature. New functions.  
+fix: Fix the bugs.  
+docs: Docs changes.  
+refactor: Refactor the codes.  
+test: Test codes.  
+chore: Others.  
+
+---
+
+## Current Working Method
+
+This section records the currently proposed collaboration workflow for the project.
 
 ### Core Principle
 
 Each iteration should produce a `working prototype` or `working software increment`.
 
-We do not wait until the whole system is complete before integrating work. Instead:
+The team will not wait until the whole system is complete before integrating work. Instead:
 
-1. A small but runnable prototype is defined first.
-2. The prototype is reviewed to identify missing requirements, bugs, and usability issues.
-3. The issues found are converted into concrete development tasks.
-4. Tasks are assigned to team members and implemented in branches.
-5. Finished tasks are reviewed and merged back into `main` in small steps.
+1. Define a small but runnable prototype first.
+2. Review the prototype to identify missing requirements, bugs, and usability issues.
+3. Convert the findings into concrete development tasks.
+4. Assign tasks to team members and implement them in personal branches.
+5. Merge finished work back into `main` in small steps.
 
 ### Team Coordination
 
-The project direction is defined first by the core coordinators of the current iteration. Their responsibilities include:
+The current project direction for each iteration is defined first by the core coordinators of that iteration. Their responsibilities include:
 
 - defining the iteration goal
 - preparing the current prototype or workflow draft
@@ -37,7 +63,7 @@ The project direction is defined first by the core coordinators of the current i
 - splitting work into concrete tasks
 - reviewing whether work is ready to merge
 
-Other team members take clearly scoped tasks based on the current prototype. This is intended to reduce confusion and reduce communication cost.
+Other team members should work on clearly scoped tasks based on the current prototype. This is intended to reduce confusion and communication cost.
 
 ### Iteration Pattern
 
@@ -81,24 +107,3 @@ Bad task examples:
 - improve the system
 - handle frontend
 - fix something in applications
-
-## Repository Structure
-
-```text
-Group104
-|-- documents
-|-- codes
-|   `-- src
-`-- README.md
-```
-
-## Git Convention
-
-Commit messages should follow simple Conventional Commit style:
-
-- `feat`: new feature
-- `fix`: bug fix
-- `docs`: documentation update
-- `refactor`: code restructuring
-- `test`: test-related work
-- `chore`: other maintenance work
