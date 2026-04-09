@@ -1,8 +1,16 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,9 +24,6 @@ import model.Role;
 import model.User;
 import service.AuthService;
 
-/**
- * Minimal login/register panel using only name and role.
- */
 public class LoginPanel extends JPanel implements RefreshableView {
     private final AuthService authService;
     private final AppWindow appWindow;
@@ -28,43 +33,95 @@ public class LoginPanel extends JPanel implements RefreshableView {
     public LoginPanel(AppContext context, AppWindow appWindow) {
         this.authService = context.getAuthService();
         this.appWindow = appWindow;
-        this.nameField = new JTextField(18);
+        this.nameField = new JTextField();
         this.roleSelector = new JComboBox<>(Role.values());
-
         initializeLayout();
     }
 
     private void initializeLayout() {
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
+        setBackground(new Color(245, 247, 250)); // 全局淡灰蓝底色
 
-        JLabel titleLabel = new JLabel("Login / Register");
-        add(titleLabel, BorderLayout.NORTH);
+        JPanel cardPanel = new JPanel();
+        cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
+        cardPanel.setBackground(Color.WHITE);
+        cardPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(225, 228, 232), 1, true),
+                BorderFactory.createEmptyBorder(50, 60, 60, 60)
+        ));
 
-        JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        formPanel.add(new JLabel("Name:"));
-        formPanel.add(nameField);
-        formPanel.add(new JLabel("Role:"));
-        formPanel.add(roleSelector);
+        // 标题
+        JLabel titleLabel = new JLabel("Welcome Back");
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 26));
+        titleLabel.setForeground(new Color(30, 30, 30));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cardPanel.add(titleLabel);
 
-        JButton enterButton = new JButton("Enter");
+        JLabel subTitleLabel = new JLabel("Please enter your details to continue");
+        subTitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        subTitleLabel.setForeground(new Color(120, 120, 120));
+        subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cardPanel.add(subTitleLabel);
+        cardPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+
+        Dimension fieldSize = new Dimension(260, 40);
+
+        // Name 输入
+        JLabel nameLabel = new JLabel("Full Name");
+        nameLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        nameLabel.setForeground(new Color(80, 80, 80));
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cardPanel.add(nameLabel);
+        cardPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+
+        nameField.setMaximumSize(fieldSize);
+        nameField.setPreferredSize(fieldSize);
+        nameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cardPanel.add(nameField);
+        cardPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        // Role 选择
+        JLabel roleLabel = new JLabel("Select Role");
+        roleLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        roleLabel.setForeground(new Color(80, 80, 80));
+        roleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cardPanel.add(roleLabel);
+        cardPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+
+        roleSelector.setMaximumSize(fieldSize);
+        roleSelector.setPreferredSize(fieldSize);
+        roleSelector.setAlignmentX(Component.CENTER_ALIGNMENT);
+        roleSelector.setBackground(Color.WHITE);
+        cardPanel.add(roleSelector);
+        cardPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+
+        // 主按钮
+        JButton enterButton = new JButton("Enter System");
+        enterButton.setFont(new Font("SansSerif", Font.BOLD, 15));
+        enterButton.setForeground(Color.WHITE);
+        enterButton.setBackground(new Color(40, 116, 240)); // 现代主色调蓝
+        enterButton.setFocusPainted(false);
+        enterButton.setBorderPainted(false);
+        enterButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        enterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        enterButton.setMaximumSize(fieldSize);
+        enterButton.setPreferredSize(fieldSize);
         enterButton.addActionListener(event -> loginOrRegister());
-        formPanel.add(enterButton);
+        cardPanel.add(enterButton);
 
-        add(formPanel, BorderLayout.CENTER);
+        add(cardPanel, new GridBagConstraints());
     }
 
     private void loginOrRegister() {
         try {
-            User user = authService.loginOrRegister(nameField.getText(), (Role) roleSelector.getSelectedItem());
+            User user = authService.loginOrRegister(nameField.getText().trim(), (Role) roleSelector.getSelectedItem());
             nameField.setText("");
             appWindow.onLoginSuccess(user);
         } catch (IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, exception.getMessage(), "Input Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     @Override
-    public void refreshView() {
-        nameField.setText("");
-    }
+    public void refreshView() { nameField.setText(""); }
 }
