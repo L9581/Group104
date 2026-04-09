@@ -32,6 +32,23 @@ public class JobRepository {
                 .findFirst();
     }
 
+    public List<Job> findAll() {
+        StorageSupport.ensureFileWithHeader(filePath, HEADER);
+        List<Job> jobs = new ArrayList<>();
+        for (String line : StorageSupport.readDataLines(filePath)) {
+            List<String> values = CsvUtils.parseLine(line);
+            if (values.size() < 4) {
+                continue;
+            }
+            jobs.add(new Job(
+                    values.get(0),
+                    values.get(1),
+                    values.get(2),
+                    JobStatus.valueOf(values.get(3))));
+        }
+        return jobs;
+    }
+
     public List<Job> findByStatus(JobStatus status) {
         return findAll().stream()
                 .filter(job -> job.getStatus() == status)
@@ -62,23 +79,6 @@ public class JobRepository {
         }
 
         rewriteAll(jobs);
-    }
-
-    private List<Job> findAll() {
-        StorageSupport.ensureFileWithHeader(filePath, HEADER);
-        List<Job> jobs = new ArrayList<>();
-        for (String line : StorageSupport.readDataLines(filePath)) {
-            List<String> values = CsvUtils.parseLine(line);
-            if (values.size() < 4) {
-                continue;
-            }
-            jobs.add(new Job(
-                    values.get(0),
-                    values.get(1),
-                    values.get(2),
-                    JobStatus.valueOf(values.get(3))));
-        }
-        return jobs;
     }
 
     private void rewriteAll(List<Job> jobs) {

@@ -24,6 +24,14 @@ public class ApplicationService {
     }
 
     public void applyToJob(String jobId, String applicantName) {
+        applyToJob(jobId, applicantName, "", false);
+    }
+
+    public void applyToJob(String jobId, String applicantName, String note) {
+        applyToJob(jobId, applicantName, note, true);
+    }
+
+    private void applyToJob(String jobId, String applicantName, String note, boolean requireNote) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new IllegalArgumentException("Job not found."));
 
@@ -37,11 +45,16 @@ public class ApplicationService {
             throw new IllegalArgumentException("You have already applied for this job.");
         }
 
+        String cleanedNote = note == null ? "" : note.trim();
+        if (requireNote && cleanedNote.isEmpty()) {
+            throw new IllegalArgumentException("Application text cannot be empty.");
+        }
+
         Application application = new Application(
                 UUID.randomUUID().toString(),
                 jobId,
                 applicantName,
-                "",
+                cleanedNote,
                 ApplicationStatus.PENDING);
         applicationRepository.save(application);
     }
@@ -71,8 +84,13 @@ public class ApplicationService {
         List<Application> updatedApplications = new ArrayList<>();
         for (Application application : applications) {
             if (application.getApplicantName().equals(applicantName)) {
+                if (application.getStatus() != ApplicationStatus.PENDING) {
+                    throw new IllegalArgumentException("Only pending applicants can be accepted.");
+                }
                 updatedApplications.add(application.withStatus(ApplicationStatus.HIRED));
                 foundApplicant = true;
+            } else if (application.getStatus() == ApplicationStatus.REJECTED) {
+                updatedApplications.add(application);
             } else {
                 updatedApplications.add(application.withStatus(ApplicationStatus.REJECTED));
             }
@@ -84,5 +102,39 @@ public class ApplicationService {
 
         applicationRepository.replaceApplicationsForJob(jobId, updatedApplications);
         jobRepository.updateStatus(jobId, JobStatus.CLOSED);
+    }
+
+    public void rejectApplicant(String jobId, String applicantName) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new IllegalArgumentException("Job not found."));
+
+        if (job.getStatus() != JobStatus.OPEN) {
+            throw new IllegalArgumentException("This job is already closed.");
+        }
+
+        List<Application> applications = applicationRepository.findByJobId(jobId);
+        if (applications.isEmpty()) {
+            throw new IllegalArgumentException("No applicants found for this job.");
+        }
+
+        boolean foundApplicant = false;
+        List<Application> updatedApplications = new ArrayList<>();
+        for (Application application : applications) {
+            if (application.getApplicantName().equals(applicantName)) {
+                if (application.getStatus() != ApplicationStatus.PENDING) {
+                    throw new IllegalArgumentException("Only pending applicants can be rejected.");
+                }
+                updatedApplications.add(application.withStatus(ApplicationStatus.REJECTED));
+                foundApplicant = true;
+            } else {
+                updatedApplications.add(application);
+            }
+        }
+
+        if (!foundApplicant) {
+            throw new IllegalArgumentException("Selected applicant not found.");
+        }
+
+        applicationRepository.replaceApplicationsForJob(jobId, updatedApplications);
     }
 }

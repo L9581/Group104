@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import model.Job;
@@ -32,7 +33,15 @@ public class JobService {
         return jobRepository.findByStatus(JobStatus.OPEN);
     }
 
+    public List<Job> listAllJobs() {
+        return jobRepository.findAll();
+    }
+
     public List<Job> listJobsPostedBy(String postedBy) {
         return jobRepository.findByPostedBy(postedBy);
+    }
+
+    public Optional<Job> findJobById(String jobId) {
+        return jobRepository.findById(jobId);
     }
 }
