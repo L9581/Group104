@@ -1,5 +1,5 @@
 # Group104
-The group mini-project of software-engineering class
+The group mini-project of software-engineering class, **it is strongly recommended to read ALL OF THIS README.md file before contributing.**
 
 ## Team Members
 - Member Name / QMUL ID / Class ID
@@ -34,3 +34,105 @@ docs: Docs changes.
 refactor: Refactor the codes.  
 test: Test codes.  
 chore: Others.  
+
+---
+
+## Current Working Method
+
+This section records the currently proposed collaboration workflow for the project.
+
+### Core Principle
+
+Each iteration should produce a `working prototype` or `working software increment`.
+
+The team will not wait until the whole system is complete before integrating work. Instead:
+
+1. Define a small but runnable prototype first.
+2. Review the prototype to identify missing requirements, bugs, and usability issues.
+3. Convert the findings into concrete development tasks.
+4. Assign tasks to team members and implement them in personal branches.
+5. Merge finished work back into `main` in small steps.
+
+### Team Coordination
+
+The current project direction for each iteration is defined first by the core coordinators of that iteration. Their responsibilities include:
+
+- defining the iteration goal
+- preparing the current prototype or workflow draft
+- identifying missing requirements and defects
+- splitting work into concrete tasks
+- reviewing whether work is ready to merge
+
+Other team members should work on clearly scoped tasks based on the current prototype. This is intended to reduce confusion and communication cost.
+
+### Iteration Pattern
+
+For each iteration, the team follows this cycle:
+
+1. Define a small iteration goal.
+2. Produce or update a runnable prototype.
+3. Review the prototype and record:
+   - missing requirements
+   - bugs
+   - data fields that need to be added
+   - UI or workflow problems
+4. Break the findings into small implementation tasks.
+5. Assign tasks to branches.
+6. Merge completed work into `main` after checking that it does not break the current runnable version.
+
+### Branch and Merge Rule
+
+- `main` must remain the latest stable and demonstrable version.
+- Each member should work on their own branch.
+- Work should be merged in `small steps`, not in one large final merge.
+- A change should be merged only when:
+  - it has a clear purpose
+  - it does not break existing runnable behaviour
+  - it is understandable to the rest of the team
+
+### Task Assignment Rule
+
+Tasks should be assigned as `clear deliverables`, not vague ideas.
+
+Good task examples:
+
+- implement job post form
+- implement CSV storage for jobs
+- implement application submission page
+- write user stories document
+- prepare demo script
+
+Bad task examples:
+
+- improve the system
+- handle frontend
+- fix something in applications
+
+### Current Technical Choice
+
+- Java: `21`
+- UI: `Java Swing`
+- Storage: `CSV` files for the current version
+
+### Build and Run
+
+- Windows users should open `PowerShell` in the repository root and run:
+
+```powershell
+.\build_and_run
+```
+
+- The launcher delegates to `build_and_run_win.bat`
+- The script requires `Java 21`
+
+### Current V1 Progress
+
+The current `V1` implementation already includes:
+
+- name-based login / registration with `TA` and `MO` roles
+- duplicate-name checking
+- `MO` job posting with a minimal job name field
+- `TA` viewing open jobs and applying
+- `MO` viewing their own posted jobs and applicant lists
+- `MO` hiring one applicant, which closes the job
+- CSV-based data persistence under `codes/data/`
