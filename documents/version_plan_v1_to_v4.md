@@ -38,40 +38,48 @@ Deliver the first runnable version as a `small but complete recruitment workflow
 ### Target Stories
 
 - 4. As a `TA`, I want to view available jobs.
-- 6. As a `TA`, I want to view job details.
 - 7. As a `TA`, I want to apply for a job.
 - 14. As a `MO`, I want to create a job post.
-- 15. As a `MO`, I want to define basic job information.
+- 20. As a `MO`, I want to view all applicants for a specific job.
+- 24. As a `MO`, I want to select the final TA for a job.
 - 32. As a `system user`, I want data stored in text files.
 - 33. As a `system user`, I want basic input validation.
 - 34. As a `system user`, I want existing data to be loaded.
 
 ### Required Features
 
-- basic role selection or role switching
+- optional login-like entry or role selection
+- user registration by name only
+- duplicate-name detection
 - basic main window or navigation skeleton
 - job post form
-- fields for title, module/department, description, skills, workload, and pay
+- only `job name` is required for job posting in V1
 - job list page
-- job detail view
 - application form
 - save posted jobs into a text file or CSV
 - save applications into a text file or CSV
-- load saved job data when the program starts
+- load saved jobs and application records when the program starts
 - error message when required fields are empty
 - success message after posting
+- MO applicant list view under each posted job
+- `Hire` action for one applicant
+- job locking after one applicant is hired
+- locked jobs remain visible but cannot be applied for by other TAs
 
 ### Deliverable Standard
 
 - the program can be opened and used
 - at least one job can be created and saved successfully
 - a TA can view jobs and submit an application
+- an MO can open a job and view its applicant list
+- an MO can hire one applicant for a job
+- a hired job becomes unavailable for further applications
 - saved data can be seen in local text files
 - the version is stable enough for a short demonstration
 
 ### Notes
 
-This version should already look like a small recruitment system rather than an isolated single feature.
+This version should already form a minimal closed recruitment loop: register, post, apply, hire, and lock.
 
 ## V2 - Recruitment Management Refinement
 
@@ -87,31 +95,33 @@ Strengthen the recruitment workflow by allowing MOs to review applicants and man
 ### Target Stories
 
 - 8. As a `TA`, I want to add a short application note.
-- 9. As a `TA`, I want to view my submitted applications.
 - 10. As a `TA`, I want to check my application status.
-- 20. As a `MO`, I want to view all applicants for a specific job.
+- 15. As a `MO`, I want to define basic job information.
 - 21. As a `MO`, I want to view an applicant's profile or application data.
 - 23. As a `MO`, I want to update application status.
 
 ### Required Features
 
+- richer job information than in V1
+- better job detail display for TAs
 - applicant list view for each job
 - display of core applicant information
 - status update actions such as `Submitted`, `Shortlisted`, `Rejected`, and `Accepted`
-- simple TA-side application record view
+- TA-side status display
 - optional application note support
 - file persistence for updated status
 
 ### Deliverable Standard
 
+- posted jobs display clearer information than in V1
 - the MO can review applicants for a posted job
 - the MO can update application status
 - application status is preserved after restart
-- the TA side can display application records or current status in a simple way
+- the TA side can display current status in a simple way
 
 ### Notes
 
-This version makes the system manageable rather than only submittable.
+This version makes the system clearer and more manageable than the minimal V1 workflow.
 
 ## V3 - Admin Visibility and Data Quality
 
@@ -205,6 +215,6 @@ This version should focus on enhancement and presentation quality rather than re
 
 - Do we need a separate TA profile file in V1, or can we keep application data simple first
 - Should workload in V3 mean `accepted jobs only` or `all applications`
-- Do we need job deadlines before V2, or can this be deferred
+- Which extra job fields should be introduced in V2 beyond the minimal V1 version
 - Should application status be editable only by MO
 - What is the minimum acceptable UI quality for mid-term demonstration
