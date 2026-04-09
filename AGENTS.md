@@ -4,7 +4,8 @@
 
 The repository is intentionally small.
 
-- `codes/src/`: Java source files for the TA Recruitment System.
+- `codes/src/`: Java source files, split into `app`, `model`, `service`, `storage`, and `ui`.
+- `codes/data/`: runtime CSV storage files. Keep only `.gitkeep` tracked.
 - `documents/`: planning and project documents such as version scope, user stories, and workflow notes.
 - `README.md`: team conventions and current collaboration workflow.
 
@@ -12,14 +13,18 @@ Keep implementation files under `codes/src/`. Keep planning, scope, and report m
 
 ## Build, Test, and Development Commands
 
-There is no fixed build script at the moment. Use simple Java CLI commands while the project is being rebuilt.
+Use Java 21. Prefer the Windows helper script when working on this machine.
 
-- `javac codes/src/*.java`
-  Compiles all Java source files.
-- `java -cp codes/src Main`
-  Runs the application if the entry class is `Main`.
+- `.\build_and_run`
+  Windows entry command. It delegates to the Java 21 build-and-run batch script.
+- `build_and_run_win.bat`
+  Detects Java 21, compiles all sources into `codes/build/`, and starts `app.Main`.
+- `javac -d codes/build (all .java files under codes/src)`
+  Compiles all Java source files into `codes/build/`.
+- `java -cp codes/build app.Main`
+  Runs the desktop application.
 
-If the entry class changes, update both the command and `README.md`. Add new helper scripts only when the team agrees on a stable workflow.
+If the Java version, entry class, or package structure changes, update these commands and `README.md`.
 
 ## Coding Style & Naming Conventions
 

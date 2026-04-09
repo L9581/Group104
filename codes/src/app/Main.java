@@ -1,0 +1,16 @@
+package app;
+
+import javax.swing.SwingUtilities;
+
+/**
+ * Application entry point.
+ */
+public class Main {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            AppContext context = new AppContext();
+            AppWindow appWindow = new AppWindow(context);
+            appWindow.setVisible(true);
+        });
+    }
+}

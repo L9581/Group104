@@ -1,5 +1,5 @@
 # Group104
-The group mini-project of software-engineering class
+The group mini-project of software-engineering class, **it is strongly recommended to read ALL OF THIS README.md file before contributing.**
 
 ## Team Members
 - Member Name / QMUL ID / Class ID
@@ -107,3 +107,32 @@ Bad task examples:
 - improve the system
 - handle frontend
 - fix something in applications
+
+### Current Technical Choice
+
+- Java: `21`
+- UI: `Java Swing`
+- Storage: `CSV` files for the current version
+
+### Build and Run
+
+- Windows users should open `PowerShell` in the repository root and run:
+
+```powershell
+.\build_and_run
+```
+
+- The launcher delegates to `build_and_run_win.bat`
+- The script requires `Java 21`
+
+### Current V1 Progress
+
+The current `V1` implementation already includes:
+
+- name-based login / registration with `TA` and `MO` roles
+- duplicate-name checking
+- `MO` job posting with a minimal job name field
+- `TA` viewing open jobs and applying
+- `MO` viewing their own posted jobs and applicant lists
+- `MO` hiring one applicant, which closes the job
+- CSV-based data persistence under `codes/data/`
