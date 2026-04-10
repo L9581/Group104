@@ -77,7 +77,8 @@ public class ApplicationDecisionDialog extends JDialog {
         contentPanel.add(metaLabel);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 16)));
 
-        JTextArea noteArea = new JTextArea(application.getNote().isBlank() ? "-" : application.getNote());
+        String displayNote = application.getNote().isBlank() ? "No application text provided" : application.getNote();
+        JTextArea noteArea = new JTextArea(displayNote);
         noteArea.setEditable(false);
         noteArea.setLineWrap(true);
         noteArea.setWrapStyleWord(true);

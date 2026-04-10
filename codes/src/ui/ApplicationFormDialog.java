@@ -98,15 +98,31 @@ public class ApplicationFormDialog extends JDialog {
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    private void submitApplication() {
-        try {
-            applicationService.applyToJob(job.getJobId(), applicantName, noteArea.getText());
-            submitted = true;
-            JOptionPane.showMessageDialog(this, "Application submitted successfully.");
-            dispose();
-        } catch (IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+private void submitApplication() {
+    try {
+        applicationService.applyToJob(job.getJobId(), applicantName, noteArea.getText());
+        submitted = true;
+        
+        // Success Dialog with English button
+        Object[] options = {"OK"};
+        JOptionPane.showOptionDialog(this,
+                "Application submitted successfully.",
+                "Success",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+                
+        dispose();
+    } catch (IllegalArgumentException exception) {
+        // Fix for the error dialog button (Issue identified in image_2752a4.png)
+        Object[] options = {"OK"};
+        JOptionPane.showOptionDialog(this,
+                exception.getMessage(),
+                "Error",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.ERROR_MESSAGE,
+                null, options, options[0]);
     }
+}
 }
 
