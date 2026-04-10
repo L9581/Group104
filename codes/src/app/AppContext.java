@@ -7,6 +7,7 @@ import model.User;
 import service.ApplicationService;
 import service.AuthService;
 import service.JobService;
+import service.RuntimeDataResetService;
 import storage.ApplicationRepository;
 import storage.JobRepository;
 import storage.UserRepository;
@@ -18,6 +19,7 @@ public class AppContext {
     private final AuthService authService;
     private final JobService jobService;
     private final ApplicationService applicationService;
+    private final RuntimeDataResetService runtimeDataResetService;
     private User currentUser;
 
     public AppContext() {
@@ -30,6 +32,7 @@ public class AppContext {
         this.authService = new AuthService(userRepository);
         this.jobService = new JobService(jobRepository);
         this.applicationService = new ApplicationService(applicationRepository, jobRepository);
+        this.runtimeDataResetService = new RuntimeDataResetService(dataDirectory);
     }
 
     public AuthService getAuthService() {
@@ -42,6 +45,10 @@ public class AppContext {
 
     public ApplicationService getApplicationService() {
         return applicationService;
+    }
+
+    public RuntimeDataResetService getRuntimeDataResetService() {
+        return runtimeDataResetService;
     }
 
     public User getCurrentUser() {

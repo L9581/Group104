@@ -23,15 +23,18 @@ import app.AppWindow;
 import model.Role;
 import model.User;
 import service.AuthService;
+import service.RuntimeDataResetService;
 
 public class LoginPanel extends JPanel implements RefreshableView {
     private final AuthService authService;
+    private final RuntimeDataResetService runtimeDataResetService;
     private final AppWindow appWindow;
     private final JTextField nameField;
     private final JComboBox<Role> roleSelector;
 
     public LoginPanel(AppContext context, AppWindow appWindow) {
         this.authService = context.getAuthService();
+        this.runtimeDataResetService = context.getRuntimeDataResetService();
         this.appWindow = appWindow;
         this.nameField = new JTextField();
         this.roleSelector = new JComboBox<>(Role.values());
@@ -109,6 +112,20 @@ public class LoginPanel extends JPanel implements RefreshableView {
         enterButton.addActionListener(event -> loginOrRegister());
         cardPanel.add(enterButton);
 
+        cardPanel.add(Box.createRigidArea(new Dimension(0, 14)));
+
+        JButton resetButton = new JButton("Reset Test Data");
+        resetButton.setFont(new Font("SansSerif", Font.BOLD, 13));
+        resetButton.setForeground(new Color(180, 50, 50));
+        resetButton.setBackground(Color.WHITE);
+        resetButton.setFocusPainted(false);
+        resetButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        resetButton.setMaximumSize(fieldSize);
+        resetButton.setPreferredSize(fieldSize);
+        resetButton.addActionListener(event -> confirmAndResetRuntimeData());
+        cardPanel.add(resetButton);
+
         add(cardPanel, new GridBagConstraints());
     }
 
@@ -122,6 +139,37 @@ public class LoginPanel extends JPanel implements RefreshableView {
         }
     }
 
+    private void confirmAndResetRuntimeData() {
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                "This will delete all runtime CSV data under codes/data for a fresh test run.\nContinue?",
+                "Confirm Reset",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (choice != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            runtimeDataResetService.resetRuntimeData();
+            refreshView();
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Runtime CSV data has been cleared. The next actions will recreate fresh files as needed.",
+                    "Reset Complete",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (IllegalStateException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Reset Failed",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     @Override
-    public void refreshView() { nameField.setText(""); }
+    public void refreshView() {
+        nameField.setText("");
+        roleSelector.setSelectedIndex(0);
+    }
 }

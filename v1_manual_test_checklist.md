@@ -23,8 +23,9 @@ This checklist validates the current V1 workflow and is aligned with the actual 
 
 1. Close the application.
 2. Ensure `codes/data/` exists.
-3. It is recommended to back up old CSV files and run a clean test round.
-4. Current data files:
+3. Use `Reset Test Data` on the login page when you need a fresh test round.
+4. It is still recommended to back up old CSV files before resetting if the data matters.
+5. Current data files:
    - `codes/data/users.csv`
    - `codes/data/jobs.csv`
    - `codes/data/applications.csv`
@@ -91,6 +92,22 @@ This checklist validates the current V1 workflow and is aligned with the actual 
 - Expected Result:
   - Error dialog appears with `This name is already registered with another role.`.
   - Access is denied.
+
+### TC-RESET-01 Reset runtime data from login page
+
+- Goal: Testers can clear runtime CSV data without manually deleting files.
+- Precondition:
+  - Application is on the login page.
+  - `codes/data/` contains one or more CSV files with test data.
+- Steps:
+  1. Click `Reset Test Data`.
+  2. In `Confirm Reset`, click `Yes`.
+  3. Try logging in again with a previously used test account name.
+- Expected Result:
+  - A success dialog confirms the reset completed.
+  - Runtime CSV files under `codes/data/` are removed and recreated only when the app needs them again.
+  - `.gitkeep` remains in `codes/data/`.
+  - The application behaves like a fresh start, so the previously used account name can be registered again.
 
 ### TC-JOB-01 MO posts a job successfully
 
