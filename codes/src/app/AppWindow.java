@@ -3,7 +3,6 @@ package app;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -20,6 +19,7 @@ import ui.LoginPanel;
 import ui.MyApplicationsPanel;
 import ui.MyPostedJobsPanel;
 import ui.PostJobPanel;
+import ui.ButtonStyles;
 import ui.RefreshableView;
 
 /**
@@ -160,11 +160,7 @@ public class AppWindow extends JFrame {
     private JButton createNavButton(String text, Runnable action) {
         JButton button = new JButton(text);
         button.setFont(new Font("SansSerif", Font.BOLD, 14));
-        button.setForeground(new Color(60, 60, 60));
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ButtonStyles.applyNavText(button);
         button.addActionListener(event -> action.run());
         return button;
     }

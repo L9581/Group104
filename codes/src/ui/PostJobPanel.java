@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -72,11 +71,7 @@ public class PostJobPanel extends JPanel implements RefreshableView {
 
         JButton postButton = new JButton("Publish Job");
         postButton.setFont(new Font("SansSerif", Font.BOLD, 15));
-        postButton.setForeground(Color.WHITE);
-        postButton.setBackground(new Color(40, 116, 240));
-        postButton.setFocusPainted(false);
-        postButton.setBorderPainted(false);
-        postButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ButtonStyles.applyPrimary(postButton);
         postButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         postButton.setMaximumSize(fieldSize);
         postButton.setPreferredSize(fieldSize);

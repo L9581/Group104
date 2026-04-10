@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -100,9 +99,8 @@ public class ApplicantsDialog extends JDialog {
 
         JButton reviewButton = new JButton("Review");
         reviewButton.setFont(new Font("SansSerif", Font.BOLD, 12));
+        ButtonStyles.applyOutline(reviewButton);
         reviewButton.setPreferredSize(new Dimension(120, 32));
-        reviewButton.setFocusPainted(false);
-        reviewButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         reviewButton.addActionListener(event -> openDecisionDialog(application));
 
         JPanel buttonWrapper = new JPanel(new GridBagLayout());
@@ -129,4 +127,3 @@ public class ApplicantsDialog extends JDialog {
         }
     }
 }
-

@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -118,11 +117,7 @@ public class MyPostedJobsPanel extends JPanel implements RefreshableView {
         // 管理按钮 (采用描边按钮风格)
         JButton manageButton = new JButton("View Applicants");
         manageButton.setFont(new Font("SansSerif", Font.BOLD, 13));
-        manageButton.setForeground(new Color(40, 116, 240));
-        manageButton.setBackground(Color.WHITE);
-        manageButton.setBorder(BorderFactory.createLineBorder(new Color(40, 116, 240), 1));
-        manageButton.setFocusPainted(false);
-        manageButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ButtonStyles.applyOutline(manageButton);
         manageButton.setPreferredSize(new Dimension(140, 36));
         manageButton.addActionListener(event -> openApplicantsDialog(job));
 

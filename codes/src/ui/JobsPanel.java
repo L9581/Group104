@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -136,11 +135,7 @@ public class JobsPanel extends JPanel implements RefreshableView {
         if (currentUser.getRole() == Role.TA) {
             JButton applyButton = new JButton("Apply Now");
             applyButton.setFont(new Font("SansSerif", Font.BOLD, 13));
-            applyButton.setForeground(Color.WHITE);
-            applyButton.setBackground(new Color(40, 116, 240));
-            applyButton.setFocusPainted(false);
-            applyButton.setBorderPainted(false);
-            applyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            ButtonStyles.applyPrimary(applyButton);
             applyButton.setPreferredSize(new Dimension(120, 36));
             applyButton.addActionListener(event -> openApplicationForm(job, currentUser.getName()));
 
@@ -162,4 +157,3 @@ public class JobsPanel extends JPanel implements RefreshableView {
         }
     }
 }
-

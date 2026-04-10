@@ -99,14 +99,17 @@ public class ApplicationDecisionDialog extends JDialog {
         // --- ISSUE: Undo Workflow UI Logic ---
         if (pending) {
             JButton rejectButton = new JButton("Reject");
+            ButtonStyles.applyDangerOutline(rejectButton);
             rejectButton.addActionListener(event -> rejectApplication());
             buttonPanel.add(rejectButton);
 
             JButton acceptButton = new JButton("Accept");
+            ButtonStyles.applyPrimary(acceptButton);
             acceptButton.addActionListener(event -> acceptApplication());
             buttonPanel.add(acceptButton);
         } else {
             JButton undoButton = new JButton("Undo Decision");
+            ButtonStyles.applyOutline(undoButton);
             boolean isRejected = application.getStatus() == model.ApplicationStatus.REJECTED;
             boolean isJobClosed = job.getStatus() == model.JobStatus.CLOSED;
 
@@ -121,6 +124,7 @@ public class ApplicationDecisionDialog extends JDialog {
         }
 
         JButton exitButton = new JButton("Exit");
+        ButtonStyles.applyOutline(exitButton);
         exitButton.addActionListener(event -> dispose());
         buttonPanel.add(exitButton);
 

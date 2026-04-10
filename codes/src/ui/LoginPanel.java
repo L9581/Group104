@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -101,11 +100,7 @@ public class LoginPanel extends JPanel implements RefreshableView {
         // 主按钮
         JButton enterButton = new JButton("Enter System");
         enterButton.setFont(new Font("SansSerif", Font.BOLD, 15));
-        enterButton.setForeground(Color.WHITE);
-        enterButton.setBackground(new Color(40, 116, 240)); // 现代主色调蓝
-        enterButton.setFocusPainted(false);
-        enterButton.setBorderPainted(false);
-        enterButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ButtonStyles.applyPrimary(enterButton);
         enterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         enterButton.setMaximumSize(fieldSize);
         enterButton.setPreferredSize(fieldSize);
@@ -116,10 +111,7 @@ public class LoginPanel extends JPanel implements RefreshableView {
 
         JButton resetButton = new JButton("Reset Test Data");
         resetButton.setFont(new Font("SansSerif", Font.BOLD, 13));
-        resetButton.setForeground(new Color(180, 50, 50));
-        resetButton.setBackground(Color.WHITE);
-        resetButton.setFocusPainted(false);
-        resetButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ButtonStyles.applyDangerOutline(resetButton);
         resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         resetButton.setMaximumSize(fieldSize);
         resetButton.setPreferredSize(fieldSize);
