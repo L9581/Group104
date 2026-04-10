@@ -123,6 +123,18 @@ Bad task examples:
 ```
 
 - The launcher delegates to `build_and_run_win.bat`
+- Linux users should run:
+
+```bash
+./build_and_run_linux.sh
+```
+
+- macOS users should run:
+
+```bash
+./build_and_run_mac.sh
+```
+
 - The script requires `Java 21`
 
 ### Current V1 Progress
