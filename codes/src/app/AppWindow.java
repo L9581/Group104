@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.Role;
@@ -24,6 +25,7 @@ import ui.RefreshableView;
 /**
  * Main application window. It owns role-based navigation and view switching.
  */
+
 public class AppWindow extends JFrame {
     private static final String VIEW_LOGIN = "login";
     private static final String VIEW_JOBS = "jobs";
@@ -87,10 +89,21 @@ public class AppWindow extends JFrame {
         showJobs();
     }
 
+    // --- ISSUE #9: 添加登出确认弹窗 ---
     public void logout() {
-        context.setCurrentUser(null);
-        updateNavigation();
-        showLogin();
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to log out?",
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            context.setCurrentUser(null);
+            updateNavigation();
+            showLogin();
+        }
     }
 
     public void showLogin() {

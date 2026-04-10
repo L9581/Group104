@@ -108,15 +108,42 @@ public class MyApplicationsPanel extends JPanel implements RefreshableView {
         JLabel jobLabel = new JLabel(jobName);
         jobLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         jobLabel.setForeground(new Color(40, 40, 40));
+        jobLabel.setAlignmentX(LEFT_ALIGNMENT);
         contentPanel.add(jobLabel);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 4)));
 
-        JLabel metaLabel = new JLabel("Posted by: " + postedBy + "  |  Status: "
-                + application.getStatus().toDisplayText());
-        metaLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        metaLabel.setForeground(new Color(110, 110, 110));
-        contentPanel.add(metaLabel);
+        // --- 状态颜色优化逻辑 ---
+        JPanel metaPanel = new JPanel();
+        metaPanel.setLayout(new BoxLayout(metaPanel, BoxLayout.X_AXIS));
+        metaPanel.setOpaque(false);
+        metaPanel.setAlignmentX(LEFT_ALIGNMENT);
+
+        JLabel postedByLabel = new JLabel("Posted by: " + postedBy + "  |  Status: ");
+        postedByLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        postedByLabel.setForeground(new Color(110, 110, 110));
+        metaPanel.add(postedByLabel);
+
+        JLabel statusLabel = new JLabel(application.getStatus().toDisplayText());
+        statusLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+
+        // 根据不同状态设置不同的颜色
+        switch (application.getStatus()) {
+            case HIRED:
+                statusLabel.setForeground(new Color(40, 167, 69)); // 绿色 (Accepted)
+                break;
+            case REJECTED:
+                statusLabel.setForeground(new Color(220, 53, 69)); // 红色 (Rejected)
+                break;
+            case PENDING:
+            default:
+                statusLabel.setForeground(new Color(253, 126, 20)); // 橙色 (Pending)
+                break;
+        }
+        metaPanel.add(statusLabel);
+
+        contentPanel.add(metaPanel);
         contentPanel.add(Box.createRigidArea(new Dimension(0, 12)));
+        // -------------------------
 
         JTextArea noteArea = new JTextArea(application.getNote().isBlank() ? "-" : application.getNote());
         noteArea.setEditable(false);
