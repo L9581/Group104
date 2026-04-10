@@ -25,6 +25,7 @@ import ui.RefreshableView;
 /**
  * Main application window. It owns role-based navigation and view switching.
  */
+
 public class AppWindow extends JFrame {
     private static final String VIEW_LOGIN = "login";
     private static final String VIEW_JOBS = "jobs";
