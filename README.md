@@ -138,6 +138,12 @@ Bad task examples:
 - The launcher delegates to `build_and_run_win.bat`
 - The script requires `Java 21`
 
+- Mac users should open `Terminal` in the repository root and run:
+```Terminal
+chmod +x build_and_run_mac.sh
+./build_and_run_mac.sh
+```
+  
 ### Current Project Progress (V2 Refinement)
 -The system has moved beyond the V1 prototype and currently implements the V2 recruitment management workflow. Key features include:
 
