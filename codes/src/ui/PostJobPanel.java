@@ -22,6 +22,9 @@ import app.AppWindow;
 import model.User;
 import service.JobService;
 
+/**
+ * Form panel for MO users to post new TA jobs. Handles job creation and publishing.
+ */
 public class PostJobPanel extends JPanel implements RefreshableView {
     private final AppContext context;
     private final AppWindow appWindow;

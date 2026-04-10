@@ -23,6 +23,9 @@ import model.User;
 import service.ApplicationService;
 import service.JobService;
 
+/**
+ * Displays jobs posted by the current MO user. Allows viewing and managing applicants for each job.
+ */
 public class MyPostedJobsPanel extends JPanel implements RefreshableView {
     private final AppContext context;
     private final AppWindow appWindow;
