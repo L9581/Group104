@@ -1,8 +1,7 @@
-# Group104
-The group mini-project of software-engineering class, **it is strongly recommended to read ALL OF THIS README.md file before contributing.**
+# Group104 - TA Recruitment System (V2)
+This is the group mini-project for the Software Engineering class. **It is strongly recommended to read ALL of this README.md file before contributing.**
 
 ## Team Members
-- Member Name / QMUL ID / Class ID
 - Bowen Lai / 231223069 / 2023215121
 - Zehao Yang / 231223106 / 2023215121
 - Zhuohang Tian / 231223128 / 2023215121
@@ -10,19 +9,33 @@ The group mini-project of software-engineering class, **it is strongly recommend
 - Qian Li / 231223092 / 2023215121
 - Chenyu Kang / 231223122 / 2023215121
 
-# Contribute
+## Current Project Progress (V2 Refinement)
+The system has moved beyond the V1 prototype and currently implements the **V2 recruitment management workflow**. Key features include:
+* **Polished UI**: Modernized Java Swing interface with card-based layouts and enhanced navigation.
+* **Application Notes**: TAs can now add a short note when applying for a job.
+* **Application Tracking**: TAs have a dedicated "My Applications" panel to track the status (Pending, Accepted, Rejected) of their submissions.
+* **MO Decision Management**: MOs can review specific applicant notes and perform explicit **Accept** or **Reject** actions.
+* **Job Status Automation**: Jobs automatically transition to `CLOSED` status once an applicant is accepted.
 
 ## File structure
 
 ```
 ----Group104
-   |
-   |----documents: Documents folder
-   |
+   |----documents: Planning docs, user stories, and Git workflow guides
    |----codes
-       |
        |----src: Java source codes
+           |----app: Bootstrap, main window, and shared context
+           |----model: Domain objects and enums
+           |----service: Business logic and recruitment rules
+           |----storage: CSV repositories and file handling
+           |----ui: Swing panels and interactive dialogs
+       |----data: Runtime CSV storage files (tracked by .gitkeep)
 ```
+
+## Build and Development Environment
+- **Java Version**: 21
+- **UI Framework**: Java Swing
+- **Storage**: CSV file persistence
 
 ## Git
 
@@ -125,14 +138,15 @@ Bad task examples:
 - The launcher delegates to `build_and_run_win.bat`
 - The script requires `Java 21`
 
-### Current V1 Progress
+### Current Project Progress (V2 Refinement)
+-The system has moved beyond the V1 prototype and currently implements the V2 recruitment management workflow. Key features include:
 
-The current `V1` implementation already includes:
+-Polished UI: Modernized Java Swing interface with card-based layouts and enhanced navigation.
 
-- name-based login / registration with `TA` and `MO` roles
-- duplicate-name checking
-- `MO` job posting with a minimal job name field
-- `TA` viewing open jobs and applying
-- `MO` viewing their own posted jobs and applicant lists
-- `MO` hiring one applicant, which closes the job
-- CSV-based data persistence under `codes/data/`
+-Application Notes: TAs can now add a short note when applying for a job.
+
+-Application Tracking: TAs have a dedicated "My Applications" panel to track the status (Pending, Accepted, Rejected) of their submissions.
+
+-MO Decision Management: MOs can review specific applicant notes and perform explicit Accept or Reject actions.
+
+-Job Status Automation: Jobs automatically transition to CLOSED status once an applicant is accepted.
