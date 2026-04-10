@@ -137,4 +137,53 @@ public class ApplicationService {
 
         applicationRepository.replaceApplicationsForJob(jobId, updatedApplications);
     }
+
+    // --- ISSUE: Undo Workflow Logic ---
+    public void undoDecision(String jobId, String applicantName) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new IllegalArgumentException("Job not found."));
+
+        List<Application> applications = applicationRepository.findByJobId(jobId);
+        if (applications.isEmpty()) {
+            throw new IllegalArgumentException("No applicants found for this job.");
+        }
+
+        Application targetApplication = null;
+        for (Application app : applications) {
+            if (app.getApplicantName().equals(applicantName)) {
+                targetApplication = app;
+                break;
+            }
+        }
+
+        if (targetApplication == null) {
+            throw new IllegalArgumentException("Selected applicant not found.");
+        }
+
+        if (targetApplication.getStatus() == ApplicationStatus.PENDING) {
+            throw new IllegalArgumentException("Application is already pending; nothing to undo.");
+        }
+
+        // Rule A validation: Cannot undo a rejection if the job is already closed (someone else is hired)
+        if (targetApplication.getStatus() == ApplicationStatus.REJECTED && job.getStatus() == JobStatus.CLOSED) {
+            throw new IllegalArgumentException("Cannot undo rejection: Job is already closed. Please undo the hired applicant first.");
+        }
+
+        // Apply Undo: Reset status to PENDING
+        List<Application> updatedApplications = new ArrayList<>();
+        for (Application app : applications) {
+            if (app.getApplicantName().equals(applicantName)) {
+                updatedApplications.add(app.withStatus(ApplicationStatus.PENDING));
+            } else {
+                updatedApplications.add(app);
+            }
+        }
+
+        applicationRepository.replaceApplicationsForJob(jobId, updatedApplications);
+
+        // Rule B trigger: If we undid a HIRE, the job must reopen
+        if (targetApplication.getStatus() == ApplicationStatus.HIRED) {
+            jobRepository.updateStatus(jobId, JobStatus.OPEN);
+        }
+    }
 }

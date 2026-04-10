@@ -22,7 +22,7 @@ import model.Job;
 import service.ApplicationService;
 
 /**
- * Allows an MO to review one application note and either accept, reject, or exit.
+ * Allows an MO to review one application note and either accept, reject, undo, or exit.
  */
 public class ApplicationDecisionDialog extends JDialog {
     private final ApplicationService applicationService;
@@ -92,17 +92,32 @@ public class ApplicationDecisionDialog extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         buttonPanel.setAlignmentX(LEFT_ALIGNMENT);
+
         boolean pending = application.getStatus() == model.ApplicationStatus.PENDING;
 
-        JButton rejectButton = new JButton("Reject");
-        rejectButton.setEnabled(pending);
-        rejectButton.addActionListener(event -> rejectApplication());
-        buttonPanel.add(rejectButton);
+        // --- ISSUE: Undo Workflow UI Logic ---
+        if (pending) {
+            JButton rejectButton = new JButton("Reject");
+            rejectButton.addActionListener(event -> rejectApplication());
+            buttonPanel.add(rejectButton);
 
-        JButton acceptButton = new JButton("Accept");
-        acceptButton.setEnabled(pending);
-        acceptButton.addActionListener(event -> acceptApplication());
-        buttonPanel.add(acceptButton);
+            JButton acceptButton = new JButton("Accept");
+            acceptButton.addActionListener(event -> acceptApplication());
+            buttonPanel.add(acceptButton);
+        } else {
+            JButton undoButton = new JButton("Undo Decision");
+            boolean isRejected = application.getStatus() == model.ApplicationStatus.REJECTED;
+            boolean isJobClosed = job.getStatus() == model.JobStatus.CLOSED;
+
+            // If the job is closed, we cannot undo a rejection (MO must undo the hire first)
+            if (isRejected && isJobClosed) {
+                undoButton.setEnabled(false);
+                undoButton.setToolTipText("Cannot undo rejection: Job is already closed.");
+            } else {
+                undoButton.addActionListener(event -> undoApplication());
+            }
+            buttonPanel.add(undoButton);
+        }
 
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(event -> dispose());
@@ -132,6 +147,31 @@ public class ApplicationDecisionDialog extends JDialog {
             dispose();
         } catch (IllegalArgumentException exception) {
             JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void undoApplication() {
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to undo this decision? The applicant will be returned to PENDING.",
+                "Confirm Undo",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            try {
+                applicationService.undoDecision(job.getJobId(), application.getApplicantName());
+                changed = true;
+                // If we undo a HIRED applicant, the job re-opens. Closing the parent dialog returns MO to the Job list to see the OPEN status.
+                if (application.getStatus() == model.ApplicationStatus.HIRED) {
+                    closeApplicantsDialog = true;
+                }
+                JOptionPane.showMessageDialog(this, "Decision reversed successfully.");
+                dispose();
+            } catch (IllegalArgumentException exception) {
+                JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
