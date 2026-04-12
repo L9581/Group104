@@ -24,6 +24,9 @@ import model.User;
 import service.AuthService;
 import service.RuntimeDataResetService;
 
+/**
+ * Login and registration panel. Handles user authentication and role selection to access the system.
+ */
 public class LoginPanel extends JPanel implements RefreshableView {
     private final AuthService authService;
     private final RuntimeDataResetService runtimeDataResetService;
