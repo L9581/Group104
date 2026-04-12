@@ -10,12 +10,12 @@ This is the group mini-project for the Software Engineering class. **It is stron
 - Chenyu Kang / 231223122 / 2023215121
 
 ## Current Project Progress (V2 Refinement)
-The system has moved beyond the V1 prototype and currently implements the **V2 recruitment management workflow**. Key features include:
-* **Polished UI**: Modernized Java Swing interface with card-based layouts and enhanced navigation.
-* **Application Notes**: TAs can now add a short note when applying for a job.
-* **Application Tracking**: TAs have a dedicated "My Applications" panel to track the status (Pending, Accepted, Rejected) of their submissions.
-* **MO Decision Management**: MOs can review specific applicant notes and perform explicit **Accept** or **Reject** actions.
-* **Job Status Automation**: Jobs automatically transition to `CLOSED` status once an applicant is accepted.
+The system currently implements the **V2 recruitment management workflow**. Key technical highlights include:
+* **Global English Localization**: Forced English locale setting in `Main.java` to ensure UI consistency across different OS languages.
+* **Unified UI Theme**: Centralized management of component styles through `ButtonStyles.java` for a professional and consistent look.
+* **Demo-Friendly Data Management**: Includes a `RuntimeDataResetService` for quick testing and demonstration purposes.
+* **Application Tracking**: TAs can now track Pending/Accepted/Rejected status, and MOs have full decision control.
+
 
 ## File structure
 
