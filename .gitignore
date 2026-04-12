@@ -1,5 +1,8 @@
 /codes/build/
+/codes/data/*.csv
 
-.idea/
-
-Group104.iml
+AGENT.md
+agent.md
+AGENTS.md
+SKILL.md
+skill.md
