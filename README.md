@@ -155,6 +155,11 @@ Bad task examples:
 chmod +x build_and_run_mac.sh
 ./build_and_run_mac.sh
 ```
+- Linux users should open `Terminal` in the repository root and run:
+```Terminal
+chmod +x build_and_run_linux.sh
+./build_and_run_linux.sh
+```
   
 ### Current Project Progress (V2 Refinement)
 -The system has moved beyond the V1 prototype and currently implements the V2 recruitment management workflow. Key features include:
